@@ -1,6 +1,10 @@
 import { Heart, Users, Trophy, Mountain } from 'lucide-react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const AboutSection = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: featuresRef, isVisible: featuresVisible, getStaggerDelay } = useStaggeredAnimation(4);
+  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation();
   const features = [
     {
       icon: Heart,
@@ -25,10 +29,15 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="o-nama" className="py-24 lg:py-32 bg-gradient-section">
+    <section id="o-nama" className="py-24 lg:py-32 bg-gradient-section overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`max-w-3xl mx-auto text-center mb-16 transition-all duration-700 ease-out ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="font-body text-primary text-sm uppercase tracking-[0.2em] mb-4">
             O Nama
           </p>
@@ -43,12 +52,14 @@ const AboutSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group p-8 bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={`group p-8 bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-500 hover:-translate-y-1 ${
+                featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={getStaggerDelay(index)}
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                 <feature.icon className="w-7 h-7 text-primary" />
@@ -64,14 +75,20 @@ const AboutSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div ref={statsRef} className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { number: '15+', label: 'Godina Iskustva' },
             { number: '50+', label: 'Aktivnih Članova' },
             { number: '100+', label: 'Trka Učestvovano' },
             { number: '20+', label: 'Konja u Klubu' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
+          ].map((stat, index) => (
+            <div 
+              key={stat.label} 
+              className={`text-center transition-all duration-700 ease-out ${
+                statsVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
               <p className="font-heading text-4xl md:text-5xl font-bold text-primary mb-2">
                 {stat.number}
               </p>

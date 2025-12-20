@@ -1,6 +1,9 @@
 import { Clock, MapPin, Users, Award } from 'lucide-react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const ActivitiesSection = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: activitiesRef, isVisible: activitiesVisible, getStaggerDelay } = useStaggeredAnimation(4);
   const activities = [
     {
       title: 'Endurance Trke',
@@ -29,10 +32,15 @@ const ActivitiesSection = () => {
   ];
 
   return (
-    <section id="aktivnosti" className="py-24 lg:py-32 bg-background">
+    <section id="aktivnosti" className="py-24 lg:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`max-w-3xl mx-auto text-center mb-16 transition-all duration-700 ease-out ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="font-body text-primary text-sm uppercase tracking-[0.2em] mb-4">
             Naše Aktivnosti
           </p>
@@ -46,11 +54,14 @@ const ActivitiesSection = () => {
         </div>
 
         {/* Activities Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div ref={activitiesRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {activities.map((activity, index) => (
             <div
               key={activity.title}
-              className="group flex flex-col md:flex-row gap-6 p-6 bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-300 overflow-hidden"
+              className={`group flex flex-col md:flex-row gap-6 p-6 bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-500 overflow-hidden ${
+                activitiesVisible ? 'opacity-100 translate-x-0' : index % 2 === 0 ? 'opacity-0 -translate-x-12' : 'opacity-0 translate-x-12'
+              }`}
+              style={getStaggerDelay(index)}
             >
               <div className="relative w-full md:w-48 h-48 md:h-auto flex-shrink-0 overflow-hidden rounded-xl">
                 <img

@@ -1,6 +1,10 @@
 import { Calendar, MapPin, Clock } from 'lucide-react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const EventsSection = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: eventsRef, isVisible: eventsVisible, getStaggerDelay } = useStaggeredAnimation(3);
+  const { ref: pastEventsRef, isVisible: pastEventsVisible } = useScrollAnimation();
   const events = [
     {
       title: 'Prolećna Endurance Trka',
@@ -47,10 +51,15 @@ const EventsSection = () => {
   ];
 
   return (
-    <section id="dogadjaji" className="py-24 lg:py-32 bg-background">
+    <section id="dogadjaji" className="py-24 lg:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`max-w-3xl mx-auto text-center mb-16 transition-all duration-700 ease-out ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="font-body text-primary text-sm uppercase tracking-[0.2em] mb-4">
             Događaji
           </p>
@@ -63,11 +72,14 @@ const EventsSection = () => {
         </div>
 
         {/* Upcoming Events */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div ref={eventsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {events.map((event, index) => (
             <div
               key={event.title}
-              className="group bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-300 overflow-hidden"
+              className={`group bg-card rounded-2xl shadow-soft hover:shadow-elevated transition-all duration-500 overflow-hidden ${
+                eventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={getStaggerDelay(index)}
             >
               <div className="h-2 bg-gradient-warm" />
               <div className="p-8">
@@ -97,15 +109,20 @@ const EventsSection = () => {
         </div>
 
         {/* Past Events */}
-        <div className="max-w-3xl mx-auto">
-          <h3 className="font-heading text-2xl font-semibold text-foreground text-center mb-8">
+        <div ref={pastEventsRef} className="max-w-3xl mx-auto">
+          <h3 className={`font-heading text-2xl font-semibold text-foreground text-center mb-8 transition-all duration-700 ${
+            pastEventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             Prošli Događaji
           </h3>
           <div className="space-y-4">
-            {pastEvents.map((event) => (
+            {pastEvents.map((event, index) => (
               <div
                 key={event.title}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-card rounded-xl border border-border/50"
+                className={`flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-card rounded-xl border border-border/50 transition-all duration-500 ${
+                  pastEventsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                }`}
+                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
               >
                 <div>
                   <h4 className="font-heading text-lg font-semibold text-foreground">
