@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: galleryRef, isVisible: galleryVisible, getStaggerDelay } = useStaggeredAnimation(6);
 
   const images = [
     {
@@ -37,10 +40,15 @@ const GallerySection = () => {
   ];
 
   return (
-    <section id="galerija" className="py-24 lg:py-32 bg-gradient-section">
+    <section id="galerija" className="py-24 lg:py-32 bg-gradient-section overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`max-w-3xl mx-auto text-center mb-16 transition-all duration-700 ease-out ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="font-body text-primary text-sm uppercase tracking-[0.2em] mb-4">
             Galerija
           </p>
@@ -53,11 +61,14 @@ const GallerySection = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+        <div ref={galleryRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
           {images.map((image, index) => (
             <div
               key={index}
-              className={`${image.span} relative overflow-hidden rounded-2xl cursor-pointer group`}
+              className={`${image.span} relative overflow-hidden rounded-2xl cursor-pointer group transition-all duration-700 ease-out ${
+                galleryVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+              }`}
+              style={getStaggerDelay(index)}
               onClick={() => setSelectedImage(image.src)}
             >
               <img

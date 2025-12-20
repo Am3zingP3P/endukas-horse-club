@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
+  const { ref: infoRef, isVisible: infoVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,10 +52,15 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="kontakt" className="py-24 lg:py-32 bg-gradient-section">
+    <section id="kontakt" className="py-24 lg:py-32 bg-gradient-section overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`max-w-3xl mx-auto text-center mb-16 transition-all duration-700 ease-out ${
+            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="font-body text-primary text-sm uppercase tracking-[0.2em] mb-4">
             Kontakt
           </p>
@@ -66,7 +75,12 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <div className="bg-card rounded-2xl shadow-elevated p-8 lg:p-10">
+          <div 
+            ref={formRef}
+            className={`bg-card rounded-2xl shadow-elevated p-8 lg:p-10 transition-all duration-700 ease-out ${
+              formVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
+            }`}
+          >
             <h3 className="font-heading text-2xl font-semibold text-foreground mb-6">
               Pošaljite Poruku
             </h3>
@@ -143,10 +157,21 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="flex flex-col justify-center">
+          <div 
+            ref={infoRef}
+            className={`flex flex-col justify-center transition-all duration-700 ease-out ${
+              infoVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+            }`}
+          >
             <div className="space-y-8">
-              {contactInfo.map((info) => (
-                <div key={info.title} className="flex items-start gap-4">
+              {contactInfo.map((info, index) => (
+                <div 
+                  key={info.title} 
+                  className={`flex items-start gap-4 transition-all duration-500 ${
+                    infoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <info.icon className="w-6 h-6 text-primary" />
                   </div>
