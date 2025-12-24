@@ -76,8 +76,9 @@
   }
 
   .dark {
+    /* DARK MODE JAVÍTÁSOK A JOBB KONTRASZTÉRT */
     --background: 30 20% 8%;
-    --foreground: 40 20% 92%;
+    --foreground: 40 30% 90%; /* Világosabb, hogy jobban olvasható legyen */
 
     --card: 30 18% 12%;
     --card-foreground: 40 20% 92%;
@@ -86,13 +87,15 @@
     --popover-foreground: 40 20% 92%;
 
     --primary: 35 50% 55%;
-    --primary-foreground: 30 20% 8%;
+    /* JAVÍTVA: A gombok szövege sötét módban is legyen világos */
+    --primary-foreground: 40 30% 95%; 
 
     --secondary: 30 15% 18%;
     --secondary-foreground: 40 20% 92%;
 
     --muted: 30 15% 20%;
-    --muted-foreground: 40 15% 60%;
+    /* JAVÍTVA: A leírások (muted text) ne legyenek túl sötétek */
+    --muted-foreground: 40 10% 70%; 
 
     --accent: 140 25% 45%;
     --accent-foreground: 30 20% 8%;
@@ -115,6 +118,9 @@
     --sidebar-accent-foreground: 30 20% 8%;
     --sidebar-border: 30 15% 20%;
     --sidebar-ring: 35 50% 55%;
+    
+    /* Gradients adjustments for dark mode */
+    --gradient-section: linear-gradient(180deg, hsl(30 20% 8%) 0%, hsl(30 20% 10%) 100%);
   }
 }
 
