@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background Gradient Overlay - JAVÍTVA: erősebb blur és sötétebb overlay a jobb kontrasztért */}
+      {/* Animated Background Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background/90 z-[1] backdrop-blur-[3px]" />
       
       {/* Decorative floating elements */}
@@ -78,7 +78,6 @@ const HeroSection = () => {
           </div>
           
           {/* Main Title with reveal effect */}
-          {/* JAVÍTÁS: pb-4 a levágás ellen, text-white a láthatóságért */}
           <div className="overflow-hidden mb-6 pb-4">
             <h1 
               className={`font-heading text-6xl md:text-8xl lg:text-9xl text-white font-semibold leading-[0.9] transition-all duration-1000 ${
@@ -96,7 +95,7 @@ const HeroSection = () => {
               }`}
               style={{ 
                 transitionDelay: '500ms',
-                background: 'linear-gradient(135deg, #ffffff 0%, hsl(var(--gold)) 50%, #ffffff 100%)', // Hardcoded white gradients
+                background: 'linear-gradient(135deg, #ffffff 0%, hsl(var(--gold)) 50%, #ffffff 100%)',
                 backgroundSize: '200% auto',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -118,7 +117,6 @@ const HeroSection = () => {
             }}
           />
           
-          {/* JAVÍTÁS: text-white/90 a jobb olvashatóságért */}
           <p 
             className={`font-body text-white/90 text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-12 leading-relaxed transition-all duration-1000 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -159,14 +157,15 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - JAVÍTVA */}
       <div 
         className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
           isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '1100ms' }}
       >
-        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-white/60 hover:text-white transition-colors">
+        {/* ITT A MÓDOSÍTÁS: text-foreground (sötét) világos módban, dark:text-white sötét módban */}
+        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-foreground/80 hover:text-foreground dark:text-white/80 dark:hover:text-white transition-colors">
           <span className="font-body text-[10px] uppercase tracking-[0.3em]">Skroluj</span>
           <div className="relative w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
             <div className="w-1 h-2 rounded-full bg-current animate-bounce-gentle" />
