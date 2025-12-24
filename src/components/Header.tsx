@@ -1,10 +1,31 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react'; // Sun és Moon importálása
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  // Kezdőérték beállítása localStorage vagy rendszerbeállítás alapján
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) return savedTheme as 'light' | 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  // Téma váltás effektus
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,6 +116,19 @@ const Header = () => {
               </a>
             ))}
             
+            {/* Theme Toggle Button (Desktop) */}
+            <button
+              onClick={toggleTheme}
+              className={`ml-2 p-2.5 rounded-full transition-all duration-300 ${
+                isScrolled
+                  ? 'text-foreground hover:bg-muted'
+                  : 'text-primary-foreground hover:bg-primary-foreground/10'
+              }`}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            
             <a
               href="#kontakt"
               className={`ml-4 px-7 py-3 rounded-full font-body text-sm font-medium transition-all duration-500 overflow-hidden group relative ${
@@ -108,17 +142,32 @@ const Header = () => {
             </a>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-3 rounded-full transition-all duration-300 ${
-              isScrolled 
-                ? 'text-foreground hover:bg-muted' 
-                : 'text-primary-foreground hover:bg-primary-foreground/10'
-            }`}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* Theme Toggle Button (Mobile) */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-full transition-all duration-300 ${
+                isScrolled 
+                  ? 'text-foreground hover:bg-muted' 
+                  : 'text-primary-foreground hover:bg-primary-foreground/10'
+              }`}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`p-2 rounded-full transition-all duration-300 ${
+                isScrolled 
+                  ? 'text-foreground hover:bg-muted' 
+                  : 'text-primary-foreground hover:bg-primary-foreground/10'
+              }`}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
