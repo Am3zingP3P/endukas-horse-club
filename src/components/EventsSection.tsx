@@ -88,7 +88,7 @@ const EventsSection = () => {
           {events.map((event, index) => (
             <div
               key={event.title}
-              // JAVÍTÁS: !scale-100 és !transform-none kényszerítése, h-full a magassághoz
+              // !scale-100 és !transform-none a méret egységesítéséhez
               className={`group relative card-premium h-full flex flex-col !scale-100 !transform-none ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
                 eventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
@@ -97,9 +97,9 @@ const EventsSection = () => {
                 transitionDuration: '800ms'
               }}
             >
-              {/* Featured badge */}
+              {/* Featured badge - JAVÍTVA: top-5 right-6, hogy látható legyen és ne takarja a dátumot */}
               {event.featured && (
-                <div className="absolute -top-3 left-8 z-10">
+                <div className="absolute top-5 right-6 z-10">
                   <span className="px-4 py-1.5 bg-gradient-gold text-gold-foreground text-xs font-body font-semibold uppercase tracking-wider rounded-full shadow-gold">
                     Preporučeno
                   </span>
@@ -109,7 +109,6 @@ const EventsSection = () => {
               {/* Top gradient line */}
               <div className={`h-1 ${event.featured ? 'bg-gradient-gold' : 'bg-gradient-warm'}`} />
               
-              {/* JAVÍTÁS: flex-grow a belső tartalomnak */}
               <div className="p-8 lg:p-10 flex flex-col h-full">
                 {/* Date badge */}
                 <div className="flex items-center gap-2 mb-6">
@@ -119,12 +118,12 @@ const EventsSection = () => {
                   <span className="font-body text-primary text-sm font-medium">{event.date}</span>
                 </div>
 
-                {/* Title - JAVÍTÁS: pb-2 a betűk levágása ellen */}
+                {/* Title */}
                 <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pb-2 leading-tight">
                   {event.title}
                 </h3>
                 
-                {/* Description - JAVÍTÁS: flex-grow hogy kitöltse a teret */}
+                {/* Description */}
                 <p className="font-body text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">
                   {event.description}
                 </p>
