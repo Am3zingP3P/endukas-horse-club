@@ -78,7 +78,8 @@ const HeroSection = () => {
           </div>
           
           {/* Main Title with reveal effect */}
-          <div className="overflow-hidden mb-6">
+          {/* ITT A JAVÍTÁS: hozzáadtam a pb-4 osztályt */}
+          <div className="overflow-hidden mb-6 pb-4">
             <h1 
               className={`font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground font-semibold leading-[0.9] transition-all duration-1000 ${
                 isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
