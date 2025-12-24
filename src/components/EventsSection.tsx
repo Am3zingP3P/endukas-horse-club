@@ -84,12 +84,12 @@ const EventsSection = () => {
         </div>
 
         {/* Upcoming Events */}
-        <div ref={eventsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
+        <div ref={eventsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-24 items-stretch">
           {events.map((event, index) => (
             <div
               key={event.title}
-              // JAVÍTÁS: h-full hozzáadva, lg:scale-105 eltávolítva
-              className={`group relative card-premium h-full flex flex-col ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
+              // JAVÍTÁS: !scale-100 és !transform-none kényszerítése, h-full a magassághoz
+              className={`group relative card-premium h-full flex flex-col !scale-100 !transform-none ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
                 eventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
               style={{ 
@@ -109,7 +109,7 @@ const EventsSection = () => {
               {/* Top gradient line */}
               <div className={`h-1 ${event.featured ? 'bg-gradient-gold' : 'bg-gradient-warm'}`} />
               
-              {/* JAVÍTÁS: flex-grow a belső tartalomnak, hogy kitöltse a kártyát */}
+              {/* JAVÍTÁS: flex-grow a belső tartalomnak */}
               <div className="p-8 lg:p-10 flex flex-col h-full">
                 {/* Date badge */}
                 <div className="flex items-center gap-2 mb-6">
@@ -119,18 +119,18 @@ const EventsSection = () => {
                   <span className="font-body text-primary text-sm font-medium">{event.date}</span>
                 </div>
 
-                {/* Title */}
-                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pb-1">
+                {/* Title - JAVÍTÁS: pb-2 a betűk levágása ellen */}
+                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pb-2 leading-tight">
                   {event.title}
                 </h3>
                 
-                {/* Description */}
+                {/* Description - JAVÍTÁS: flex-grow hogy kitöltse a teret */}
                 <p className="font-body text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">
                   {event.description}
                 </p>
 
                 {/* Meta info */}
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-6">
+                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-6 mt-auto">
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-primary/60" />
                     {event.time}
@@ -142,7 +142,7 @@ const EventsSection = () => {
                 </div>
 
                 {/* CTA */}
-                <button className="flex items-center gap-2 text-primary font-body text-sm font-medium group/btn mt-auto">
+                <button className="flex items-center gap-2 text-primary font-body text-sm font-medium group/btn">
                   <span className="link-underline">Više detalja</span>
                   <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </button>
