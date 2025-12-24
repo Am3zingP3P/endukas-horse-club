@@ -14,6 +14,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background Gradient Overlay */}
+      {/* Ez a réteg a z-[1], tehát a tartalomnak ennél magasabb z-index kell */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background/90 z-[1] backdrop-blur-[3px]" />
       
       {/* Decorative floating elements */}
@@ -159,13 +160,14 @@ const HeroSection = () => {
 
       {/* Scroll Indicator - JAVÍTVA */}
       <div 
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
+        // ITT A JAVÍTÁS: z-20 hozzáadva, hogy a blur fölé kerüljön!
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 z-20 ${
           isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '1100ms' }}
       >
-        {/* ITT A MÓDOSÍTÁS: text-foreground (sötét) világos módban, dark:text-white sötét módban */}
-        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-foreground/80 hover:text-foreground dark:text-white/80 dark:hover:text-white transition-colors">
+        {/* Színek: Világos módban sötétbarna (primary), Sötét módban fehér */}
+        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-primary hover:text-primary/80 dark:text-white dark:hover:text-white/80 transition-colors">
           <span className="font-body text-[10px] uppercase tracking-[0.3em]">Skroluj</span>
           <div className="relative w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
             <div className="w-1 h-2 rounded-full bg-current animate-bounce-gentle" />
