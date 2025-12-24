@@ -88,16 +88,16 @@ const EventsSection = () => {
           {events.map((event, index) => (
             <div
               key={event.title}
-              // !scale-100 és !transform-none a méret egységesítéséhez
-              className={`group relative card-premium h-full flex flex-col !scale-100 !transform-none ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
+              // JAVÍTÁS: hover:!scale-[0.98] és hover:shadow-2xl hozzáadva a "besüppedős" hatáshoz
+              className={`group relative card-premium h-full flex flex-col !scale-100 !transform-none hover:!scale-[0.98] hover:shadow-2xl ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-300 ${
                 eventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
               style={{ 
                 ...getStaggerDelay(index),
-                transitionDuration: '800ms'
+                // Kivettem a fix 800ms transition-t, hogy a hover gyorsabb és pattogósabb legyen
               }}
             >
-              {/* Featured badge - JAVÍTVA: top-5 right-6, hogy látható legyen és ne takarja a dátumot */}
+              {/* Featured badge - Jobb felső sarokban */}
               {event.featured && (
                 <div className="absolute top-5 right-6 z-10">
                   <span className="px-4 py-1.5 bg-gradient-gold text-gold-foreground text-xs font-body font-semibold uppercase tracking-wider rounded-full shadow-gold">
