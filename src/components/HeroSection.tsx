@@ -1,60 +1,182 @@
+import { useEffect, useState } from 'react';
 import heroImage from '@/assets/hero-horse.jpg';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import { useMouseParallax } from '@/hooks/useParallax';
 
 const HeroSection = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const mousePosition = useMouseParallax(0.015);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0">
+      {/* Animated Background Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/30 to-foreground/70 z-[1]" />
+      
+      {/* Decorative floating elements */}
+      <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
+        <div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/10 blur-3xl animate-breathe"
+          style={{ 
+            transform: `translate(${mousePosition.x * 2}px, ${mousePosition.y * 2}px)`,
+            transition: 'transform 0.3s ease-out'
+          }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-gold/10 blur-3xl animate-breathe animation-delay-500"
+          style={{ 
+            transform: `translate(${mousePosition.x * -2}px, ${mousePosition.y * -2}px)`,
+            transition: 'transform 0.3s ease-out'
+          }}
+        />
+      </div>
+
+      {/* Background Image with Parallax */}
+      <div 
+        className="absolute inset-0"
+        style={{ 
+          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(1.05)`,
+          transition: 'transform 0.5s ease-out'
+        }}
+      >
         <img
           src={heroImage}
           alt="Konj u trku na otvorenom polju"
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-all duration-1000 ${
+            isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
+          }`}
         />
-        <div className="absolute inset-0 bg-gradient-hero" />
       </div>
+
+      {/* Grain Texture Overlay */}
+      <div className="absolute inset-0 grain z-[2] pointer-events-none" />
+
+      {/* Vignette Effect */}
+      <div className="absolute inset-0 z-[2] pointer-events-none" 
+        style={{ 
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(30 20% 10% / 0.4) 100%)' 
+        }} 
+      />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">
-        <div className="max-w-4xl mx-auto">
-          <p className="font-body text-primary-foreground/80 text-sm md:text-base uppercase tracking-[0.3em] mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}>
-            Mali Iđoš, Vojvodina
-          </p>
+        <div className="max-w-5xl mx-auto">
+          {/* Premium Badge */}
+          <div 
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark mb-8 transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '200ms' }}
+          >
+            <Sparkles className="w-4 h-4 text-gold" />
+            <span className="font-body text-primary-foreground/90 text-xs uppercase tracking-[0.25em]">
+              Mali Iđoš, Vojvodina
+            </span>
+          </div>
           
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-primary-foreground font-semibold leading-tight mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
-            Konjički Klub
-            <span className="block italic text-primary-foreground/90">Endukas</span>
-          </h1>
+          {/* Main Title with reveal effect */}
+          <div className="overflow-hidden mb-6">
+            <h1 
+              className={`font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground font-semibold leading-[0.9] transition-all duration-1000 ${
+                isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+              }`}
+              style={{ transitionDelay: '400ms' }}
+            >
+              Konjički Klub
+            </h1>
+          </div>
+          <div className="overflow-hidden mb-8">
+            <h1 
+              className={`font-heading text-6xl md:text-8xl lg:text-9xl italic transition-all duration-1000 ${
+                isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+              }`}
+              style={{ 
+                transitionDelay: '500ms',
+                background: 'linear-gradient(135deg, hsl(var(--primary-foreground)) 0%, hsl(var(--gold)) 50%, hsl(var(--primary-foreground)) 100%)',
+                backgroundSize: '200% auto',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: isLoaded ? 'gradient-shift 6s ease infinite' : 'none'
+              }}
+            >
+              Endukas
+            </h1>
+          </div>
           
-          <p className="font-body text-primary-foreground/85 text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-in-up opacity-0" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
+          {/* Decorative line */}
+          <div 
+            className={`w-24 h-[2px] mx-auto mb-8 transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+            }`}
+            style={{ 
+              transitionDelay: '600ms',
+              background: 'linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)'
+            }}
+          />
+          
+          <p 
+            className={`font-body text-primary-foreground/80 text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-12 leading-relaxed transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '700ms' }}
+          >
             Gde strast prema konjima susreće izdržljivost i avanturu. 
-            Pridružite se našoj zajednici ljubitelja endurance jahanja.
+            <span className="block mt-2 text-primary-foreground/60 text-base md:text-lg">
+              Pridružite se našoj zajednici ljubitelja endurance jahanja.
+            </span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up opacity-0" style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}>
+          {/* Premium CTA Buttons */}
+          <div 
+            className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '900ms' }}
+          >
             <a
               href="#o-nama"
-              className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-body font-medium transition-all hover:shadow-glow hover:scale-105"
+              className="group relative px-10 py-5 bg-primary text-primary-foreground rounded-full font-body font-medium text-sm uppercase tracking-wider overflow-hidden transition-all duration-500 hover:shadow-gold hover:scale-105"
             >
-              Saznaj Više
+              <span className="relative z-10">Saznaj Više</span>
+              <div className="absolute inset-0 bg-gradient-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer" 
+                style={{ background: 'linear-gradient(120deg, transparent 0%, hsl(var(--primary-foreground) / 0.2) 50%, transparent 100%)', backgroundSize: '200% 100%' }}
+              />
             </a>
             <a
               href="#kontakt"
-              className="px-8 py-4 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground border border-primary-foreground/30 rounded-full font-body font-medium transition-all hover:bg-primary-foreground/20"
+              className="group relative px-10 py-5 rounded-full font-body font-medium text-sm uppercase tracking-wider text-primary-foreground border border-primary-foreground/30 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-primary-foreground/60 hover:scale-105"
             >
-              Kontaktiraj Nas
+              <span className="relative z-10 group-hover:text-foreground transition-colors duration-500">Kontaktiraj Nas</span>
+              <div className="absolute inset-0 bg-primary-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </a>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-        <a href="#o-nama" className="flex flex-col items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-          <span className="font-body text-xs uppercase tracking-widest">Skroluj</span>
-          <ChevronDown size={24} />
+      <div 
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
+          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '1100ms' }}
+      >
+        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-primary-foreground/60 hover:text-primary-foreground transition-colors">
+          <span className="font-body text-[10px] uppercase tracking-[0.3em]">Skroluj</span>
+          <div className="relative w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
+            <div className="w-1 h-2 rounded-full bg-current animate-bounce-gentle" />
+          </div>
         </a>
       </div>
+
+      {/* Decorative corner accents */}
+      <div className="absolute top-8 left-8 w-24 h-24 border-l-2 border-t-2 border-primary-foreground/20 z-10" />
+      <div className="absolute top-8 right-8 w-24 h-24 border-r-2 border-t-2 border-primary-foreground/20 z-10" />
+      <div className="absolute bottom-8 left-8 w-24 h-24 border-l-2 border-b-2 border-primary-foreground/20 z-10" />
+      <div className="absolute bottom-8 right-8 w-24 h-24 border-r-2 border-b-2 border-primary-foreground/20 z-10" />
     </section>
   );
 };
