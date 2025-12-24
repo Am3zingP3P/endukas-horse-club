@@ -88,7 +88,8 @@ const EventsSection = () => {
           {events.map((event, index) => (
             <div
               key={event.title}
-              className={`group relative card-premium ${event.featured ? 'lg:scale-105 shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
+              // JAVÍTÁS: h-full hozzáadva, lg:scale-105 eltávolítva
+              className={`group relative card-premium h-full flex flex-col ${event.featured ? 'shadow-elevated' : 'shadow-soft'} transition-all duration-700 ${
                 eventsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
               style={{ 
@@ -108,7 +109,8 @@ const EventsSection = () => {
               {/* Top gradient line */}
               <div className={`h-1 ${event.featured ? 'bg-gradient-gold' : 'bg-gradient-warm'}`} />
               
-              <div className="p-8 lg:p-10">
+              {/* JAVÍTÁS: flex-grow a belső tartalomnak, hogy kitöltse a kártyát */}
+              <div className="p-8 lg:p-10 flex flex-col h-full">
                 {/* Date badge */}
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -118,12 +120,12 @@ const EventsSection = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pb-1">
                   {event.title}
                 </h3>
                 
                 {/* Description */}
-                <p className="font-body text-muted-foreground text-sm leading-relaxed mb-8">
+                <p className="font-body text-muted-foreground text-sm leading-relaxed mb-8 flex-grow">
                   {event.description}
                 </p>
 
@@ -140,7 +142,7 @@ const EventsSection = () => {
                 </div>
 
                 {/* CTA */}
-                <button className="flex items-center gap-2 text-primary font-body text-sm font-medium group/btn">
+                <button className="flex items-center gap-2 text-primary font-body text-sm font-medium group/btn mt-auto">
                   <span className="link-underline">Više detalja</span>
                   <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </button>
