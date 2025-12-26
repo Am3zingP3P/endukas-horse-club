@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/context/LanguageContext';
 
 const ContactSection = () => {
   const { toast } = useToast();
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const { ref: infoRef, isVisible: infoVisible } = useScrollAnimation();
+  const { t } = useLanguage();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,8 +27,8 @@ const ContactSection = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
-      title: 'Poruka poslata!',
-      description: 'Hvala na interesovanju. Odgovorićemo vam u najkraćem roku.',
+      title: t('contact.toast_title'),
+      description: t('contact.toast_desc'),
     });
     setFormData({ name: '', email: '', phone: '', message: '' });
     setIsSubmitting(false);
@@ -38,23 +41,23 @@ const ContactSection = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Adresa',
+      title: t('contact.info_addr'),
       content: 'Mali Iđoš, Vojvodina, Srbija',
     },
     {
       icon: Phone,
-      title: 'Telefon',
+      title: t('contact.info_phone'),
       content: '+381 XX XXX XXXX',
     },
     {
       icon: Mail,
-      title: 'Email',
+      title: t('contact.info_email'),
       content: 'info@kkendukas.rs',
     },
     {
       icon: Clock,
-      title: 'Radno Vreme',
-      content: 'Svaki dan 08:00 - 18:00',
+      title: t('contact.info_hours'),
+      content: t('contact.hours_val'),
     },
   ];
 
@@ -77,17 +80,16 @@ const ContactSection = () => {
           }`}
         >
           <span className="inline-block font-body text-primary text-xs uppercase tracking-[0.3em] mb-6">
-            Kontakt
+            {t('contact.badge')}
           </span>
           
           <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl text-foreground font-semibold mb-8 leading-[1.1]">
-            Javite Nam{' '}
-            <span className="italic text-primary">Se</span>
+            {t('contact.title')}{' '}
+            <span className="italic text-primary">{t('contact.title_accent')}</span>
           </h2>
           
           <p className="font-body text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-            Imate pitanja? Želite da nas posetite ili da se pridružite? 
-            Slobodno nas kontaktirajte.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -100,13 +102,13 @@ const ContactSection = () => {
             }`}
           >
             <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-8">
-              Pošaljite Poruku
+              {t('contact.form_title')}
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block font-body text-sm text-foreground mb-3 font-medium">
-                  Ime i Prezime
+                  {t('contact.label_name')}
                 </label>
                 <input
                   type="text"
@@ -116,14 +118,14 @@ const ContactSection = () => {
                   onChange={handleChange}
                   required
                   className="w-full px-5 py-4 bg-background border border-border rounded-xl font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-300"
-                  placeholder="Vaše ime"
+                  placeholder={t('contact.ph_name')}
                 />
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="email" className="block font-body text-sm text-foreground mb-3 font-medium">
-                    Email
+                    {t('contact.label_email')}
                   </label>
                   <input
                     type="email"
@@ -133,12 +135,12 @@ const ContactSection = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-5 py-4 bg-background border border-border rounded-xl font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-300"
-                    placeholder="vas@email.com"
+                    placeholder={t('contact.ph_email')}
                   />
                 </div>
                 <div>
                   <label htmlFor="phone" className="block font-body text-sm text-foreground mb-3 font-medium">
-                    Telefon
+                    {t('contact.label_phone')}
                   </label>
                   <input
                     type="tel"
@@ -154,7 +156,7 @@ const ContactSection = () => {
               
               <div>
                 <label htmlFor="message" className="block font-body text-sm text-foreground mb-3 font-medium">
-                  Poruka
+                  {t('contact.label_msg')}
                 </label>
                 <textarea
                   id="message"
@@ -164,7 +166,7 @@ const ContactSection = () => {
                   required
                   rows={5}
                   className="w-full px-5 py-4 bg-background border border-border rounded-xl font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-300 resize-none"
-                  placeholder="Kako vam možemo pomoći?"
+                  placeholder={t('contact.ph_msg')}
                 />
               </div>
               
@@ -177,12 +179,12 @@ const ContactSection = () => {
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                      Slanje...
+                      {t('contact.btn_sending')}
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      Pošalji Poruku
+                      {t('contact.btn_send')}
                     </>
                   )}
                 </span>
@@ -202,7 +204,7 @@ const ContactSection = () => {
             <div className="space-y-6 mb-12">
               {contactInfo.map((info, index) => (
                 <div 
-                  key={info.title} 
+                  key={index} 
                   className={`group flex items-start gap-5 p-6 bg-card rounded-2xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-500 ${
                     infoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                   }`}
@@ -245,7 +247,7 @@ const ContactSection = () => {
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-5 py-3 bg-card/95 backdrop-blur-sm rounded-xl border border-border/50 group/link hover:border-primary/50 transition-all duration-300"
                 >
-                  <span className="font-body text-sm text-foreground">Otvori u Google Maps</span>
+                  <span className="font-body text-sm text-foreground">{t('contact.map_btn')}</span>
                   <ArrowRight className="w-4 h-4 text-primary transition-transform duration-300 group-hover/link:translate-x-1" />
                 </a>
               </div>

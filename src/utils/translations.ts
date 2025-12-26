@@ -1,6 +1,6 @@
 export const translations = {
   sr: {
-    // Header
+    // Header & Popup
     header: {
       about: 'O Nama',
       activities: 'Aktivnosti',
@@ -9,7 +9,6 @@ export const translations = {
       contact: 'Kontakt',
       join: 'Pridruži se',
       subtitle: 'Mali Iđoš',
-      // Popup szövegek
       lang_switch_title: 'Jezik promenjen',
       lang_switch_desc: 'Jezik je uspešno promenjen na srpski.',
       lang_switch_btn: 'U redu'
@@ -25,7 +24,55 @@ export const translations = {
       text_main: 'Gde strast prema konjima susreće izdržljivost i avanturu.',
       text_sub: 'Pridružite se našoj zajednici ljubitelja endurance jahanja.'
     },
-    // Events Section
+    // About Section
+    about: {
+      badge: 'O Nama',
+      title: 'Tradicija i',
+      title_accent: 'Strast',
+      description: 'Konjički Klub Endukas je građanski klub sa sedištem u Malom Iđošu, posvećen promovisanju endurance jahanja i izgradnji zajednice ljubitelja konja u Vojvodini i šire.',
+      stats_exp: 'Godina Iskustva',
+      stats_members: 'Aktivnih Članova',
+      stats_races: 'Trka Učestvovano',
+      stats_horses: 'Konja u Klubu',
+      feat_love: 'Ljubav Prema Konjima',
+      feat_love_desc: 'Naša strast prema konjima je u srcu svega što radimo. Brinemo se o svakom konju kao o članu porodice.',
+      feat_community: 'Zajednica',
+      feat_community_desc: 'Okupljamo ljubitelje konja svih uzrasta i nivoa iskustva u podržavajućoj i prijateljskoj atmosferi.',
+      feat_comp: 'Takmičenja',
+      feat_comp_desc: 'Učestvujemo na endurance trkama širom Srbije i Balkana, negujući sportski duh i fer-plej.',
+      feat_adv: 'Avantura',
+      feat_adv_desc: 'Istražujemo predivne predele Vojvodine i šire, stvarajući nezaboravna iskustva na otvorenom.'
+    },
+    // Activities Section
+    activities: {
+      badge: 'Naše Aktivnosti',
+      title: 'Šta',
+      title_accent: 'Nudimo',
+      subtitle: 'Od profesionalnih takmičenja do opuštenog rekreativnog jahanja, imamo program za svakoga ko voli konje.',
+      card1_title: 'Endurance Trke',
+      card1_desc: 'Takmičenja na različitim distancama od 40km do 160km. Testiramo izdržljivost i partnerstvo između jahača i konja.',
+      card2_title: 'Škola Jahanja',
+      card2_desc: 'Lekcije jahanja za sve uzraste i nivoe. Od početnika do naprednih jahača, pružamo stručno vođenje.',
+      card3_title: 'Rekreativno Jahanje',
+      card3_desc: 'Opuštene vožnje kroz prirodu Vojvodine. Idealno za ljubitelje konja koji žele da uživaju u prirodi.',
+      card4_title: 'Letnji Kampovi',
+      card4_desc: 'Programi za mlade jahače tokom letnjeg raspusta. Kombinacija učenja, zabave i druženja sa konjima.',
+      cta: 'Saznaj više'
+    },
+    // Gallery Section
+    gallery: {
+      badge: 'Galerija',
+      title: 'Momenti iz',
+      title_accent: 'Kluba',
+      subtitle: 'Pogledajte naše najlepše trenutke sa takmičenja, treninga i druženja.',
+      alt_pasture: 'Konji na pašnjaku',
+      alt_race: 'Endurance trka',
+      alt_school: 'Škola jahanja',
+      alt_rider: 'Jahač sa konjem',
+      alt_nature: 'Konji u prirodi',
+      alt_sunset: 'Zalazak sunca sa konjima'
+    },
+    // Events Section (Részben már megvolt, de itt a teljes)
     events: {
       badge: 'Događaji',
       title: 'Kalendar',
@@ -34,7 +81,6 @@ export const translations = {
       featured: 'Preporučeno',
       more: 'Više detalja',
       past_title: 'Prošli Događaji',
-      // Event Items (Dinamikus adatok kulcsai)
       spring_race_title: 'Prolećna Endurance Trka',
       spring_race_desc: 'Godišnja prolećna trka na distancama od 40km i 80km. Otvoreno za sve registrovane jahače.',
       spring_race_date: '15. April 2025',
@@ -44,13 +90,37 @@ export const translations = {
       balkan_league_title: 'Balkanska Endurance Liga',
       balkan_league_desc: 'Regionalno takmičenje sa učesnicima iz cele regije. Distance 80km i 120km.',
       balkan_league_date: '20. Septembar 2025',
-      // Past Events
       ny_race: 'Novogodišnja Trka 2024',
       ny_result: 'Uspešno završeno - 25 učesnika',
       autumn_race: 'Jesenja Endurance Trka',
       autumn_result: '3. mesto - Kategorija 80km',
       vojvodina_cup: 'Vojvodina Cup',
       vojvodina_result: 'Pobednik - Kategorija 40km',
+    },
+    // Contact Section
+    contact: {
+      badge: 'Kontakt',
+      title: 'Javite Nam',
+      title_accent: 'Se',
+      subtitle: 'Imate pitanja? Želite da nas posetite ili da se pridružite? Slobodno nas kontaktirajte.',
+      form_title: 'Pošaljite Poruku',
+      label_name: 'Ime i Prezime',
+      ph_name: 'Vaše ime',
+      label_email: 'Email',
+      ph_email: 'vas@email.com',
+      label_phone: 'Telefon',
+      label_msg: 'Poruka',
+      ph_msg: 'Kako vam možemo pomoći?',
+      btn_send: 'Pošalji Poruku',
+      btn_sending: 'Slanje...',
+      info_addr: 'Adresa',
+      info_phone: 'Telefon',
+      info_email: 'Email',
+      info_hours: 'Radno Vreme',
+      hours_val: 'Svaki dan 08:00 - 18:00',
+      map_btn: 'Otvori u Google Maps',
+      toast_title: 'Poruka poslata!',
+      toast_desc: 'Hvala na interesovanju. Odgovorićemo vam u najkraćem roku.'
     },
     // Footer
     footer: {
@@ -68,7 +138,7 @@ export const translations = {
     }
   },
   hu: {
-    // Header
+    // Header & Popup
     header: {
       about: 'Rólunk',
       activities: 'Tevékenységek',
@@ -77,7 +147,6 @@ export const translations = {
       contact: 'Kapcsolat',
       join: 'Csatlakozz',
       subtitle: 'Kishegyes',
-      // Popup szövegek
       lang_switch_title: 'Nyelv átváltva',
       lang_switch_desc: 'A weboldal nyelve sikeresen átváltva magyarra.',
       lang_switch_btn: 'Rendben'
@@ -93,6 +162,54 @@ export const translations = {
       text_main: 'Ahol a lovak iránti szenvedély találkozik a kitartással és a kalanddal.',
       text_sub: 'Csatlakozz az endurance lovaglás szerelmeseinek közösségéhez.'
     },
+    // About Section
+    about: {
+      badge: 'Rólunk',
+      title: 'Tradíció és',
+      title_accent: 'Szenvedély',
+      description: 'Az Endukas Lovasklub egy kishegyesi székhelyű polgári klub, amely az endurance lovaglás népszerűsítésére és a vajdasági lovas közösség építésére törekszik.',
+      stats_exp: 'Év Tapasztalat',
+      stats_members: 'Aktív Tag',
+      stats_races: 'Verseny Részvétel',
+      stats_horses: 'Ló a Klubban',
+      feat_love: 'A Lovak Szeretete',
+      feat_love_desc: 'A lovak iránti szenvedélyünk minden tevékenységünk alapja. Minden lóról családtagként gondoskodunk.',
+      feat_community: 'Közösség',
+      feat_community_desc: 'Összegyűjtjük a lóbarátokat minden korosztályból és tapasztalati szintről egy támogató és barátságos légkörben.',
+      feat_comp: 'Versenyek',
+      feat_comp_desc: 'Részt veszünk endurance versenyeken Szerbia-szerte és a Balkánon, ápolva a sportszerűséget.',
+      feat_adv: 'Kaland',
+      feat_adv_desc: 'Felfedezzük Vajdaság és a tágabb régió gyönyörű tájait, felejthetetlen szabadtéri élményeket teremtve.'
+    },
+    // Activities Section
+    activities: {
+      badge: 'Tevékenységeink',
+      title: 'Amit',
+      title_accent: 'Kínálunk',
+      subtitle: 'A profi versenyektől a hobbi lovaglásig, programunk van mindenki számára, aki szereti a lovakat.',
+      card1_title: 'Endurance Versenyek',
+      card1_desc: 'Versenyek különböző távokon 40km-től 160km-ig. Teszteljük a kitartást és a lovas-ló partnerséget.',
+      card2_title: 'Lovasiskola',
+      card2_desc: 'Lovaglóórák minden korosztálynak és szintnek. A kezdőktől a haladókig szakmai vezetést biztosítunk.',
+      card3_title: 'Tereplovaglás',
+      card3_desc: 'Kikapcsoló lovaglás a vajdasági természetben. Ideális a lovak szerelmeseinek, akik élvezni akarják a tájat.',
+      card4_title: 'Nyári Táborok',
+      card4_desc: 'Programok fiatal lovasoknak a nyári szünetben. Tanulás, szórakozás és barátkozás a lovakkal.',
+      cta: 'Tudj meg többet'
+    },
+    // Gallery Section
+    gallery: {
+      badge: 'Galéria',
+      title: 'Pillanatok a',
+      title_accent: 'Klubból',
+      subtitle: 'Tekintsd meg legszebb pillanatainkat a versenyekről, edzésekről és összejövetelekről.',
+      alt_pasture: 'Lovak a legelőn',
+      alt_race: 'Endurance verseny',
+      alt_school: 'Lovasiskola',
+      alt_rider: 'Lovas lóval',
+      alt_nature: 'Lovak a természetben',
+      alt_sunset: 'Naplemente lovakkal'
+    },
     // Events Section
     events: {
       badge: 'Események',
@@ -102,7 +219,6 @@ export const translations = {
       featured: 'Ajánlott',
       more: 'Részletek',
       past_title: 'Elmúlt Események',
-      // Event Items
       spring_race_title: 'Tavaszi Endurance Verseny',
       spring_race_desc: 'Éves tavaszi verseny 40km és 80km távokon. Nyitott minden regisztrált lovas számára.',
       spring_race_date: '2025. Április 15.',
@@ -112,13 +228,37 @@ export const translations = {
       balkan_league_title: 'Balkán Endurance Liga',
       balkan_league_desc: 'Regionális verseny résztvevőkkel az egész régióból. 80km és 120km távok.',
       balkan_league_date: '2025. Szeptember 20.',
-      // Past Events
       ny_race: 'Újévi Verseny 2024',
       ny_result: 'Sikeresen zárult - 25 résztvevő',
       autumn_race: 'Őszi Endurance Verseny',
       autumn_result: '3. hely - 80km Kategória',
       vojvodina_cup: 'Vajdaság Kupa',
       vojvodina_result: 'Győztes - 40km Kategória',
+    },
+    // Contact Section
+    contact: {
+      badge: 'Kapcsolat',
+      title: 'Lépj Velünk',
+      title_accent: 'Kapcsolatba',
+      subtitle: 'Kérdésed van? Szeretnél meglátogatni minket vagy csatlakozni? Keress minket bátran.',
+      form_title: 'Küldj Üzenetet',
+      label_name: 'Név',
+      ph_name: 'Az Ön neve',
+      label_email: 'Email',
+      ph_email: 'pelda@email.com',
+      label_phone: 'Telefon',
+      label_msg: 'Üzenet',
+      ph_msg: 'Miben segíthetünk?',
+      btn_send: 'Üzenet Küldése',
+      btn_sending: 'Küldés...',
+      info_addr: 'Cím',
+      info_phone: 'Telefon',
+      info_email: 'Email',
+      info_hours: 'Nyitvatartás',
+      hours_val: 'Minden nap 08:00 - 18:00',
+      map_btn: 'Megnyitás Google Maps-en',
+      toast_title: 'Üzenet elküldve!',
+      toast_desc: 'Köszönjük érdeklődését. Hamarosan válaszolunk.'
     },
     // Footer
     footer: {

@@ -1,35 +1,37 @@
 import { Clock, MapPin, Users, Award, ArrowRight } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/context/LanguageContext';
 
 const ActivitiesSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: activitiesRef, isVisible: activitiesVisible, getStaggerDelay } = useStaggeredAnimation(4);
+  const { t } = useLanguage();
 
   const activities = [
     {
-      title: 'Endurance Trke',
-      description: 'Takmičenja na različitim distancama od 40km do 160km. Testiramo izdržljivost i partnerstvo između jahača i konja.',
+      title: t('activities.card1_title'),
+      description: t('activities.card1_desc'),
       icon: Award,
       image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&h=400&fit=crop',
       accent: 'from-primary/80 to-accent/60',
     },
     {
-      title: 'Škola Jahanja',
-      description: 'Lekcije jahanja za sve uzraste i nivoe. Od početnika do naprednih jahača, pružamo stručno vođenje.',
+      title: t('activities.card2_title'),
+      description: t('activities.card2_desc'),
       icon: Users,
       image: 'https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=600&h=400&fit=crop',
       accent: 'from-accent/80 to-primary/60',
     },
     {
-      title: 'Rekreativno Jahanje',
-      description: 'Opuštene vožnje kroz prirodu Vojvodine. Idealno za ljubitelje konja koji žele da uživaju u prirodi.',
+      title: t('activities.card3_title'),
+      description: t('activities.card3_desc'),
       icon: MapPin,
       image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop',
       accent: 'from-gold/80 to-primary/60',
     },
     {
-      title: 'Letnji Kampovi',
-      description: 'Programi za mlade jahače tokom letnjeg raspusta. Kombinacija učenja, zabave i druženja sa konjima.',
+      title: t('activities.card4_title'),
+      description: t('activities.card4_desc'),
       icon: Clock,
       image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
       accent: 'from-primary/80 to-gold/60',
@@ -52,17 +54,16 @@ const ActivitiesSection = () => {
           }`}
         >
           <span className="inline-block font-body text-primary text-xs uppercase tracking-[0.3em] mb-6">
-            Naše Aktivnosti
+            {t('activities.badge')}
           </span>
           
           <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl text-foreground font-semibold mb-8 leading-[1.1]">
-            Šta{' '}
-            <span className="italic text-primary">Nudimo</span>
+            {t('activities.title')}{' '}
+            <span className="italic text-primary">{t('activities.title_accent')}</span>
           </h2>
           
           <p className="font-body text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-            Od profesionalnih takmičenja do opuštenog rekreativnog jahanja, 
-            imamo program za svakoga ko voli konje.
+            {t('activities.subtitle')}
           </p>
         </div>
 
@@ -70,7 +71,7 @@ const ActivitiesSection = () => {
         <div ref={activitiesRef} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {activities.map((activity, index) => (
             <div
-              key={activity.title}
+              key={index}
               className={`group relative bg-card rounded-3xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-700 ${
                 activitiesVisible 
                   ? 'opacity-100 translate-y-0' 
@@ -119,7 +120,7 @@ const ActivitiesSection = () => {
 
                   {/* CTA */}
                   <div className="flex items-center gap-2 text-primary font-body text-sm font-medium group/link cursor-pointer">
-                    <span className="link-underline">Saznaj više</span>
+                    <span className="link-underline">{t('activities.cta')}</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
                   </div>
                 </div>

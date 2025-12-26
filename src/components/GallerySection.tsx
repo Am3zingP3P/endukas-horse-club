@@ -1,41 +1,43 @@
 import { useState } from 'react';
 import { X, ZoomIn } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
+import { useLanguage } from '@/context/LanguageContext';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: galleryRef, isVisible: galleryVisible, getStaggerDelay } = useStaggeredAnimation(6);
+  const { t } = useLanguage();
 
   const images = [
     {
       src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-      alt: 'Konji na pašnjaku',
+      alt: t('gallery.alt_pasture'),
       span: 'col-span-2 row-span-2',
     },
     {
       src: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&h=400&fit=crop',
-      alt: 'Endurance trka',
+      alt: t('gallery.alt_race'),
       span: 'col-span-1 row-span-1',
     },
     {
       src: 'https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=600&h=400&fit=crop',
-      alt: 'Škola jahanja',
+      alt: t('gallery.alt_school'),
       span: 'col-span-1 row-span-1',
     },
     {
       src: 'https://images.unsplash.com/photo-1534307671554-9a6d81f4d629?w=600&h=400&fit=crop',
-      alt: 'Jahač sa konjem',
+      alt: t('gallery.alt_rider'),
       span: 'col-span-1 row-span-1',
     },
     {
       src: 'https://images.unsplash.com/photo-1450052590821-8bf91254a353?w=600&h=400&fit=crop',
-      alt: 'Konji u prirodi',
+      alt: t('gallery.alt_nature'),
       span: 'col-span-1 row-span-1',
     },
     {
       src: 'https://images.unsplash.com/photo-1460924535017-83f7b3f33685?w=800&h=600&fit=crop',
-      alt: 'Zalazak sunca sa konjima',
+      alt: t('gallery.alt_sunset'),
       span: 'col-span-2 row-span-1',
     },
   ];
@@ -55,16 +57,16 @@ const GallerySection = () => {
           }`}
         >
           <span className="inline-block font-body text-primary text-xs uppercase tracking-[0.3em] mb-6">
-            Galerija
+            {t('gallery.badge')}
           </span>
           
           <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl text-foreground font-semibold mb-8 leading-[1.1]">
-            Momenti iz{' '}
-            <span className="italic text-primary">Kluba</span>
+            {t('gallery.title')}{' '}
+            <span className="italic text-primary">{t('gallery.title_accent')}</span>
           </h2>
           
           <p className="font-body text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-            Pogledajte naše najlepše trenutke sa takmičenja, treninga i druženja.
+            {t('gallery.subtitle')}
           </p>
         </div>
 

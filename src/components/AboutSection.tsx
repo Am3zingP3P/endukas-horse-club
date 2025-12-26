@@ -1,6 +1,7 @@
 import { Heart, Users, Trophy, Mountain } from 'lucide-react';
 import { useScrollAnimation, useStaggeredAnimation } from '@/hooks/useScrollAnimation';
 import { useCounter } from '@/hooks/useCounter';
+import { useLanguage } from '@/context/LanguageContext';
 
 const StatCounter = ({ end, suffix, label, isVisible, delay }: { end: number; suffix: string; label: string; isVisible: boolean; delay: number }) => {
   const count = useCounter({ end, duration: 2500, delay, enabled: isVisible });
@@ -29,35 +30,36 @@ const AboutSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: featuresRef, isVisible: featuresVisible, getStaggerDelay } = useStaggeredAnimation(4);
   const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation();
+  const { t } = useLanguage();
 
   const features = [
     {
       icon: Heart,
-      title: 'Ljubav Prema Konjima',
-      description: 'Naša strast prema konjima je u srcu svega što radimo. Brinemo se o svakom konju kao o članu porodice.',
+      title: t('about.feat_love'),
+      description: t('about.feat_love_desc'),
     },
     {
       icon: Users,
-      title: 'Zajednica',
-      description: 'Okupljamo ljubitelje konja svih uzrasta i nivoa iskustva u podržavajućoj i prijateljskoj atmosferi.',
+      title: t('about.feat_community'),
+      description: t('about.feat_community_desc'),
     },
     {
       icon: Trophy,
-      title: 'Takmičenja',
-      description: 'Učestvujemo na endurance trkama širom Srbije i Balkana, negujući sportski duh i fer-plej.',
+      title: t('about.feat_comp'),
+      description: t('about.feat_comp_desc'),
     },
     {
       icon: Mountain,
-      title: 'Avantura',
-      description: 'Istražujemo predivne predele Vojvodine i šire, stvarajući nezaboravna iskustva na otvorenom.',
+      title: t('about.feat_adv'),
+      description: t('about.feat_adv_desc'),
     },
   ];
 
   const stats = [
-    { end: 15, suffix: '+', label: 'Godina Iskustva' },
-    { end: 50, suffix: '+', label: 'Aktivnih Članova' },
-    { end: 100, suffix: '+', label: 'Trka Učestvovano' },
-    { end: 20, suffix: '+', label: 'Konja u Klubu' },
+    { end: 15, suffix: '+', label: t('about.stats_exp') },
+    { end: 50, suffix: '+', label: t('about.stats_members') },
+    { end: 100, suffix: '+', label: t('about.stats_races') },
+    { end: 20, suffix: '+', label: t('about.stats_horses') },
   ];
 
   return (
@@ -80,19 +82,17 @@ const AboutSection = () => {
         >
           <span className="inline-block font-body text-primary text-xs uppercase tracking-[0.3em] mb-6 relative">
             <span className="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 w-12 h-px bg-primary/50 mr-4 hidden sm:block" style={{ left: '-60px' }} />
-            O Nama
+            {t('about.badge')}
             <span className="absolute right-0 top-1/2 translate-x-full -translate-y-1/2 w-12 h-px bg-primary/50 ml-4 hidden sm:block" style={{ right: '-60px' }} />
           </span>
           
           <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl text-foreground font-semibold mb-8 leading-[1.1]">
-            Tradicija i{' '}
-            <span className="italic text-primary">Strast</span>
+            {t('about.title')}{' '}
+            <span className="italic text-primary">{t('about.title_accent')}</span>
           </h2>
           
           <p className="font-body text-muted-foreground text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-            Konjički Klub Endukas je građanski klub sa sedištem u Malom Iđošu, 
-            posvećen promovisanju endurance jahanja i izgradnji zajednice ljubitelja konja 
-            u Vojvodini i šire.
+            {t('about.description')}
           </p>
         </div>
 
@@ -100,7 +100,7 @@ const AboutSection = () => {
         <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-32">
           {features.map((feature, index) => (
             <div
-              key={feature.title}
+              key={index}
               className={`group card-premium p-8 lg:p-10 ${
                 featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
               }`}
@@ -144,7 +144,7 @@ const AboutSection = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((stat, index) => (
               <StatCounter
-                key={stat.label}
+                key={index}
                 end={stat.end}
                 suffix={stat.suffix}
                 label={stat.label}
