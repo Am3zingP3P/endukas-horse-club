@@ -1,9 +1,11 @@
 import { Facebook, Instagram, Youtube, ArrowUp, Heart } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +20,11 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { href: '#o-nama', label: 'O Nama' },
-    { href: '#aktivnosti', label: 'Aktivnosti' },
-    { href: '#galerija', label: 'Galerija' },
-    { href: '#dogadjaji', label: 'Događaji' },
-    { href: '#kontakt', label: 'Kontakt' },
+    { href: '#o-nama', label: t('header.about') },
+    { href: '#aktivnosti', label: t('header.activities') },
+    { href: '#galerija', label: t('header.gallery') },
+    { href: '#dogadjaji', label: t('header.events') },
+    { href: '#kontakt', label: t('header.contact') },
   ];
 
   const socialLinks = [
@@ -32,9 +34,7 @@ const Footer = () => {
   ];
 
   return (
-    // JAVÍTÁS: dark:bg-card és dark:border-t hozzáadva, hogy sötét módban is sötét maradjon a háttér
     <footer className="relative bg-foreground dark:bg-card dark:border-t dark:border-white/10 text-primary-foreground overflow-hidden transition-colors duration-500">
-      {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-5">
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-primary blur-3xl" />
         <div className="absolute top-40 -left-20 w-72 h-72 rounded-full bg-gold blur-3xl" />
@@ -45,7 +45,6 @@ const Footer = () => {
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
-          {/* Brand Column */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
@@ -54,7 +53,7 @@ const Footer = () => {
               <span className="font-heading text-2xl font-semibold">KK Endukas</span>
             </div>
             <p className="font-body text-primary-foreground/70 text-sm leading-relaxed max-w-xs">
-              Mesto gde se tradicija konjičkog sporta susreće sa modernim pristupom endurance jahanju.
+              {t('footer.desc')}
             </p>
             <div className="flex gap-4">
               {socialLinks.map((link) => (
@@ -70,9 +69,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">Brzi Linkovi</h4>
+            <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3 font-body text-sm text-primary-foreground/70">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -88,9 +86,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
-            <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">Kontakt</h4>
+            <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">{t('footer.contact')}</h4>
             <ul className="space-y-4 font-body text-sm text-primary-foreground/70">
               <li className="flex items-start gap-3">
                 <span className="block mt-1 min-w-[4px] h-[4px] rounded-full bg-primary" />
@@ -112,42 +109,39 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Working Hours - vagy egyéb infó */}
           <div>
-             <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">Radno Vreme</h4>
+             <h4 className="font-heading text-xl font-semibold mb-6 text-primary-foreground">{t('footer.workingHours')}</h4>
              <ul className="space-y-3 font-body text-sm text-primary-foreground/70">
                <li className="flex justify-between">
-                 <span>Pon - Pet:</span>
+                 <span>{t('footer.mon_fri')}:</span>
                  <span>08:00 - 20:00</span>
                </li>
                <li className="flex justify-between">
-                 <span>Subota:</span>
+                 <span>{t('footer.sat')}:</span>
                  <span>09:00 - 18:00</span>
                </li>
                <li className="flex justify-between">
-                 <span>Nedelja:</span>
-                 <span>Zatvoreno</span>
+                 <span>{t('footer.sun')}:</span>
+                 <span>{t('footer.closed')}</span>
                </li>
              </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="py-8 border-t border-primary-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-body text-sm text-primary-foreground/50 flex items-center gap-1">
-              © {currentYear} Konjički Klub Endukas. Napravljeno sa 
+              © {currentYear} {t('footer.copyright')} 
               <Heart className="w-4 h-4 text-primary fill-primary" />
-              u Vojvodini.
+              {t('footer.location_text')}
             </p>
             <p className="font-body text-sm text-primary-foreground/50">
-              Građanski klub za endurance jahanje
+              {t('footer.rights')}
             </p>
           </div>
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
         className={`fixed bottom-8 right-8 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-glow flex items-center justify-center transition-all duration-500 hover:scale-110 z-50 ${
