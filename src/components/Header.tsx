@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react'; // Sun és Moon importálása
+import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext'; // Hook importálása
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  // Kezdőérték beállítása localStorage vagy rendszerbeállítás alapján
+  const { language, toggleLanguage, t } = useLanguage(); // Nyelv használata
+
+  // Dark mode logika (ez maradt a régi)
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
@@ -15,7 +18,6 @@ const Header = () => {
     return 'light';
   });
 
-  // Téma váltás effektus
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
@@ -30,8 +32,6 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Determine active section
       const sections = ['kontakt', 'dogadjaji', 'galerija', 'aktivnosti', 'o-nama'];
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
@@ -44,17 +44,16 @@ const Header = () => {
         }
       }
     };
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { href: '#o-nama', label: 'O Nama', id: 'o-nama' },
-    { href: '#aktivnosti', label: 'Aktivnosti', id: 'aktivnosti' },
-    { href: '#galerija', label: 'Galerija', id: 'galerija' },
-    { href: '#dogadjaji', label: 'Događaji', id: 'dogadjaji' },
-    { href: '#kontakt', label: 'Kontakt', id: 'kontakt' },
+    { href: '#o-nama', label: t('header.about'), id: 'o-nama' },
+    { href: '#aktivnosti', label: t('header.activities'), id: 'aktivnosti' },
+    { href: '#galerija', label: t('header.gallery'), id: 'galerija' },
+    { href: '#dogadjaji', label: t('header.events'), id: 'dogadjaji' },
+    { href: '#kontakt', label: t('header.contact'), id: 'kontakt' },
   ];
 
   return (
@@ -86,7 +85,7 @@ const Header = () => {
               <p className={`text-xs transition-colors duration-500 ${
                 isScrolled ? 'text-muted-foreground' : 'text-primary-foreground/70'
               }`}>
-                Mali Iđoš
+                {t('header.subtitle')}
               </p>
             </div>
           </a>
@@ -116,10 +115,28 @@ const Header = () => {
               </a>
             ))}
             
-            {/* Theme Toggle Button (Desktop) */}
+            {/* Divider */}
+            <div className={`h-6 w-px mx-2 ${isScrolled ? 'bg-border' : 'bg-primary-foreground/20'}`} />
+
+            {/* Language Switcher Button - ELEGÁNS TEXT STÍLUS */}
+            <button
+              onClick={toggleLanguage}
+              className={`p-2 rounded-full transition-all duration-300 flex items-center gap-1 font-heading font-bold text-sm tracking-widest ${
+                isScrolled
+                  ? 'text-foreground hover:bg-muted'
+                  : 'text-primary-foreground hover:bg-primary-foreground/10'
+              }`}
+              aria-label="Promeni jezik / Nyelvváltás"
+            >
+              <span className={language === 'sr' ? 'text-primary underline decoration-2 underline-offset-4' : 'opacity-50'}>SR</span>
+              <span className="opacity-30">/</span>
+              <span className={language === 'hu' ? 'text-primary underline decoration-2 underline-offset-4' : 'opacity-50'}>HU</span>
+            </button>
+
+            {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className={`ml-2 p-2.5 rounded-full transition-all duration-300 ${
+              className={`ml-1 p-2.5 rounded-full transition-all duration-300 ${
                 isScrolled
                   ? 'text-foreground hover:bg-muted'
                   : 'text-primary-foreground hover:bg-primary-foreground/10'
@@ -137,14 +154,26 @@ const Header = () => {
                   : 'bg-primary-foreground/10 text-primary-foreground border border-primary-foreground/30 hover:bg-primary-foreground/20'
               }`}
             >
-              <span className="relative z-10">Pridruži se</span>
+              <span className="relative z-10">{t('header.join')}</span>
               <div className="absolute inset-0 bg-gradient-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </a>
           </nav>
 
           {/* Mobile Actions */}
           <div className="flex items-center gap-2 lg:hidden">
-            {/* Theme Toggle Button (Mobile) */}
+            
+            {/* Mobile Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className={`p-2 rounded-full font-heading font-bold text-xs tracking-widest ${
+                isScrolled 
+                  ? 'text-foreground hover:bg-muted' 
+                  : 'text-primary-foreground hover:bg-primary-foreground/10'
+              }`}
+            >
+              {language.toUpperCase()}
+            </button>
+
             <button
               onClick={toggleTheme}
               className={`p-2 rounded-full transition-all duration-300 ${
@@ -156,7 +185,6 @@ const Header = () => {
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`p-2 rounded-full transition-all duration-300 ${
@@ -203,7 +231,7 @@ const Header = () => {
                   transition: 'all 0.3s ease 0.25s'
                 }}
               >
-                Pridruži se
+                {t('header.join')}
               </a>
             </div>
           </nav>
