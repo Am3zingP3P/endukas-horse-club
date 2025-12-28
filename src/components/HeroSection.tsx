@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const mousePosition = useMouseParallax(0.015);
-  const { t } = useLanguage(); // Fordítás hook
+  const { t } = useLanguage();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -16,10 +16,6 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background Gradient Overlay */}
-      {/* JAVÍTÁS: 
-          - 'to-background/30': Világos módban csak 30%-os fedés (eltűnik a fehérség).
-          - 'dark:to-background/90': Sötét módban marad az erős fedés.
-      */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background/30 dark:to-background/90 z-[1] backdrop-blur-[2px]" />
       
       {/* Decorative floating elements */}
@@ -165,12 +161,14 @@ const HeroSection = () => {
 
       {/* Scroll Indicator */}
       <div 
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 z-20 ${
+        // ITT A JAVÍTÁS: drop-shadow-lg hozzáadva az árnyékért
+        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 z-20 drop-shadow-lg ${
           isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '1100ms' }}
       >
-        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-primary hover:text-primary/80 dark:text-white dark:hover:text-white/80 transition-colors">
+        {/* ITT A JAVÍTÁS: text-primary helyett text-white világos módban */}
+        <a href="#o-nama" className="group flex flex-col items-center gap-3 text-white hover:text-white/80 transition-colors">
           <span className="font-body text-[10px] uppercase tracking-[0.3em]">{t('hero.scroll')}</span>
           <div className="relative w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
             <div className="w-1 h-2 rounded-full bg-current animate-bounce-gentle" />
